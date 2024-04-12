@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phones</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .title {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .phone-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .phone {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .phone h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .phone p {
+            margin: 10px 0;
+            color: #666;
+        }
+        .phone img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            border: none;
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Phones</h1>
+        <div>
+            <label for="sortSelect">Sort by:</label>
+            <select id="sortSelect">
+                <option value="default">Default</option>
+                <option value="brand">Brand</option>
+            </select>
+        </div>
+        <div class="phone-container">
+            <% result.forEach(function(item) { %>
+                <div class="phone" data-brand="<%= item.brand %>" data-price="<%= item.price %>">
+                    <h2><%= item.title %></h2>
+                    <p>Price: €<%= item.price %></p>
+                    <p>Brand: <%= item.brand %></p>
+                    <p>OS: <%= item.os %></p>
+                    <img src="<%= item.image %>" alt="<%= item.title %>">
+                    <a href="/individual/<%= item.id %>" class="btn">See Details</a>
+                    <a href="/edit/<%= item.id %>" class="btn">Edit</a>
+                    <a href="/delete/<%= item.id %>" class="btn">Delete</a>
+                </div>
+            <% }); %>
+        </div>
+        <a href="/add" class="btn">Add A Phone</a>
+    </div>
+    <script>
+        // Function to sort phones by brand
+        function sortByBrand() {
+            var phones = document.querySelectorAll('.phone');
+            var sortedPhones = Array.from(phones).sort(function(a, b) {
+                var brandA = a.getAttribute('data-brand').toUpperCase();
+                var brandB = b.getAttribute('data-brand').toUpperCase();
+                if (brandA < brandB) {
+                    return -1;
+                }
+                if (brandA > brandB) {
+                    return 1;
+                }
+                return 0;
+            });
+            var phoneContainer = document.querySelector('.phone-container');
+            phoneContainer.innerHTML = ""; // Clear previous content
+            sortedPhones.forEach(function(phone) {
+                phoneContainer.appendChild(phone);
+            });
+        }
+
+        // Function to sort phones by price
+        function sortByPrice() {
+            var phones = document.querySelectorAll('.phone');
+            var sortedPhones = Array.from(phones).sort(function(a, b) {
+                var priceA = parseFloat(a.getAttribute('data-price'));
+                var priceB = parseFloat(b.getAttribute('data-price'));
+                return priceA - priceB;
+            });
+            var phoneContainer = document.querySelector('.phone-container');
+            phoneContainer.innerHTML = ""; // Clear previous content
+            sortedPhones.forEach(function(phone) {
+                phoneContainer.appendChild(phone);
+            });
+        }
+
+        // Add change event listener to the sort select
+        document.getElementById('sortSelect').addEventListener('change', function() {
+            var sortValue = this.value;
+            if (sortValue === 'brand') {
+                sortByBrand();
+            }
+        });
+
+        // Function to sort phones by brand (new function added)
+        function sortPhonesByBrand() {
+            sortByBrand();
+        }
+    </script>
+</body>
+</html>
+

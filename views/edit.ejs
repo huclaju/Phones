@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Phone</title>
+    <meta name="description" content="Edit Phone"/>
+    <meta name="author" content="Clarence" />
+    <meta name="keywords" content="phone, edit" />
+    <link rel="stylesheet" href="../stylesheet.css" type="text/css" />
+    <style type="text/css">.body { width: auto; }</style>
+</head>
+<body>
+
+<form action="/edit/<%= result[0].id %>" method="post">
+        
+    <input name="title" type="text" value="<%= result[0].title %>">
+    <input name="price" type="text" value="<%= result[0].price %>">
+    <input name="brand" type="text" value="<%= result[0].brand %>">
+    <input name="os" type="text" value="<%= result[0].os %>">
+    <input name="image" type="text" value="<%= result[0].image %>">
+
+    <input type="submit" value="Edit Phone">
+</form>
+
+</body>
+</html>

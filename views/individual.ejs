@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello!</title>
+    <meta name="description" content="description"/>
+    <meta name="author" content="author" />
+    <meta name="keywords" content="keywords" />
+    <link rel="stylesheet" href="../stylesheet.css" type="text/css" />
+    <style type="text/css">.body { width: auto; }</style>
+</head>
+<body>
+    <div id="phoneDetails" style="display:none;">
+        <h1 id="phoneTitle"></h1>
+        <p id="phonePrice"></p>
+        <p id="phoneBrand"></p>
+        <p id="phoneOS"></p>
+    </div>
+
+    <% result.forEach(function(item) { %> 
+    <div class="phone" data-title="<%= item.title %>" data-price="<%= item.price %>" data-brand="<%= item.brand %>" data-os="<%= item.os %>">
+        <h2><%= item.title %></h2>
+        <p>Price: €<%= item.price %></p>
+        <p>Brand: <%= item.brand %></p>
+        <p>OS: <%= item.os %></p>
+    </div>
+    <% }); %>  
+
+    <script>
+        // Function to display phone details
+        function displayPhoneDetails(title, price, brand, os) {
+            var phoneTitleElem = document.getElementById('phoneTitle');
+            var phonePriceElem = document.getElementById('phonePrice');
+            var phoneBrandElem = document.getElementById('phoneBrand');
+            var phoneOSElem = document.getElementById('phoneOS');
+
+            // Clear previous phone details
+            phoneTitleElem.textContent = "";
+            phonePriceElem.textContent = "";
+            phoneBrandElem.textContent = "";
+            phoneOSElem.textContent = "";
+
+            phoneTitleElem.textContent = title;
+            phonePriceElem.textContent = "Price: €" + price;
+            phoneBrandElem.textContent = "Brand: " + brand;
+            phoneOSElem.textContent = "OS: " + os;
+
+            // Show the phone details container
+            document.getElementById('phoneDetails').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
